@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Seller Pro Chat b</title>
+    <title>Seller Pro V15 - 2 Column Split</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
@@ -126,6 +126,67 @@
             box-shadow: var(--shadow-lg);
         }
 
+        /* Language Selector */
+        .language-selector {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .lang-btn {
+            padding: 6px 10px;
+            font-size: 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-main);
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+        
+        .lang-btn:hover {
+            background: var(--bg-panel);
+        }
+        
+        .lang-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            min-width: 100px;
+            box-shadow: var(--shadow-lg);
+            z-index: 100;
+            margin-top: 5px;
+        }
+        
+        .lang-dropdown.show {
+            display: block;
+        }
+        
+        .lang-option {
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .lang-option:hover {
+            background: var(--bg-panel);
+        }
+        
+        .lang-option.active {
+            background: var(--primary);
+            color: white;
+        }
+
         /* Theme Switch */
         .theme-switch { 
             position: relative; 
@@ -200,6 +261,13 @@
                 grid-template-columns: repeat(2, 1fr);
                 gap: 20px;
                 padding: 0 15px;
+            }
+            
+            /* Style untuk kolom kiri dan kanan */
+            .left-column, .right-column {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
             }
         }
 
@@ -499,6 +567,37 @@
             opacity: 1;
         }
 
+        /* Flag Counter Styles */
+        .flag-counter-container {
+            text-align: center;
+            margin: 25px auto 15px;
+            padding: 15px;
+            max-width: 600px;
+            border-radius: var(--radius);
+            background: var(--bg-card);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+        
+        .flag-counter-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        
+        .flag-counter-img:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        @media (max-width: 768px) {
+            .flag-counter-container {
+                margin: 20px 10px 10px;
+                padding: 12px;
+            }
+        }
+
         /* Utility Classes */
         .hidden { display: none !important; }
         
@@ -552,7 +651,7 @@
 
     <div class="sticky-header">
         <div class="header-left">
-            <h2>Seller Pro V15</h2>
+            <h2 id="app-title">Seller Pro V15</h2>
             <div class="theme-switch-wrapper">
                 <label class="theme-switch" for="checkbox">
                     <input type="checkbox" id="checkbox" onchange="toggleTheme(this)">
@@ -562,26 +661,52 @@
         </div>
 
         <div class="header-actions">
+            <div class="language-selector">
+                <button class="lang-btn" onclick="toggleLanguageDropdown()">
+                    <i class="fas fa-globe"></i>
+                    <span id="current-lang">ID</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="lang-dropdown" id="lang-dropdown">
+                    <div class="lang-option active" data-lang="id" onclick="changeLanguage('id')">
+                        <span>🇮🇩 Indonesia</span>
+                    </div>
+                    <div class="lang-option" data-lang="en" onclick="changeLanguage('en')">
+                        <span>🇺🇸 English</span>
+                    </div>
+                </div>
+            </div>
+            
             <button class="btn-top btn-reset" onclick="resetToDefault()">
-                <i class="fas fa-rotate-left"></i> Reset
+                <i class="fas fa-rotate-left"></i> <span id="reset-btn">Reset</span>
             </button>
             <button class="btn-top btn-clear" onclick="deleteAll()">
-                <i class="fas fa-trash-alt"></i> Hapus
+                <i class="fas fa-trash-alt"></i> <span id="delete-btn">Hapus</span>
             </button>
         </div>
     </div>
 
     <div class="info-bar">
-        <i class="fas fa-shield-alt"></i> <b>INFO PENTING:</b> Hindari kata sensitif di balasan chat.
+        <i class="fas fa-shield-alt"></i> <b id="info-title">INFO PENTING:</b> <span id="info-text">Hindari kata sensitif di balasan chat.</span>
     </div>
 
     <div id="app-container"></div>
+
+    <!-- Flag Counter Section -->
+    <div class="flag-counter-container">
+        <a href="https://info.flagcounter.com/LmOi" target="_blank">
+            <img src="https://s01.flagcounter.com/count/LmOi/bg_050B42/txt_FFFFFF/border_CCCCCC/columns_2/maxflags_10/viewers_Total+Visit/labels_1/pageviews_1/flags_0/percent_1/" 
+                 alt="Flag Counter" 
+                 border="0"
+                 class="flag-counter-img">
+        </a>
+    </div>
 
     <div class="fab" onclick="addNewCategory()">
         <i class="fas fa-plus"></i>
     </div>
 
-    <div id="toast"><i class="fas fa-check-circle"></i> Teks berhasil disalin!</div>
+    <div id="toast"><i class="fas fa-check-circle"></i> <span id="toast-text">Teks berhasil disalin!</span></div>
 
     <script>
         // --- 1. DATA MASTER ---
@@ -639,7 +764,172 @@
         const STORAGE_KEY = 'SellerProV15_Data'; 
         const BANNED_KEYWORDS = ["whatsapp", "wa ", "08", "no hp", "ig", "instagram", "shopee", "tokopedia", "lazada", "tf", "transfer", "bca", "mandiri", "diluar aplikasi", "putih instan", "permanen", "garansi uang kembali", "kw", "ori reject"];
 
-        // --- 3. INITIALIZATION & STORAGE ---
+        // --- 3. MULTI BAHASA (i18n) ---
+        const translations = {
+            id: {
+                // Header
+                'app-title': 'Seller Pro V15',
+                'reset-btn': 'Reset',
+                'delete-btn': 'Hapus',
+                'info-title': 'INFO PENTING:',
+                'info-text': 'Hindari kata sensitif di balasan chat.',
+                'toast-text': 'Teks berhasil disalin!',
+                
+                // Categories (default tetap Indonesia)
+                'category-default': 'Folder Baru',
+                'add-message': 'Tambah Pesan',
+                'message-title': 'Judul Pesan',
+                'message-content': 'Tulis balasan di sini...',
+                'tap-hint': 'Tap teks di atas untuk menyalin',
+                
+                // Buttons
+                'delete-item': 'Hapus',
+                'edit-btn': 'Edit',
+                'cancel-btn': 'Batal',
+                'save-btn': 'Simpan',
+                
+                // Confirmation Messages
+                'confirm-reset': '⚠️ PERINGATAN: Semua data script Anda akan dihapus dan dikembalikan ke pengaturan awal (pabrik).\n\nApakah Anda yakin?',
+                'confirm-delete-all': '⚠️ PERINGATAN KERAS: Menu dan semua script akan dihapus TOTAL!\n\nAnda harus membuatnya lagi dari nol.\nApakah Anda yakin?',
+                'confirm-delete-category': 'Hapus kategori folder ini?',
+                'confirm-delete-message': 'Hapus pesan ini?',
+                'confirm-banned-words': '⚠️ Ada kata terlarang (${violations}). Yakin simpan?',
+                
+                // Success Messages
+                'success-reset': 'Data berhasil dikembalikan ke default.',
+                
+                // Empty State
+                'empty-state': 'Belum ada menu tersimpan.<br>Klik tombol (+) di bawah untuk membuat baru.',
+                
+                // Warning
+                'warning-title': 'PERINGATAN',
+                'warning-banned': 'Kata "${words}" dilarang.',
+                
+                // Language
+                'current-lang': 'ID'
+            },
+            en: {
+                // Header
+                'app-title': 'Seller Pro V15',
+                'reset-btn': 'Reset',
+                'delete-btn': 'Delete',
+                'info-title': 'IMPORTANT INFO:',
+                'info-text': 'Avoid sensitive words in chat replies.',
+                'toast-text': 'Text copied successfully!',
+                
+                // Categories
+                'category-default': 'New Folder',
+                'add-message': 'Add Message',
+                'message-title': 'Message Title',
+                'message-content': 'Write reply here...',
+                'tap-hint': 'Tap text above to copy',
+                
+                // Buttons
+                'delete-item': 'Delete',
+                'edit-btn': 'Edit',
+                'cancel-btn': 'Cancel',
+                'save-btn': 'Save',
+                
+                // Confirmation Messages
+                'confirm-reset': '⚠️ WARNING: All your script data will be deleted and restored to factory settings.\n\nAre you sure?',
+                'confirm-delete-all': '⚠️ CRITICAL WARNING: All menus and scripts will be COMPLETELY DELETED!\n\nYou will have to create them again from scratch.\nAre you sure?',
+                'confirm-delete-category': 'Delete this category folder?',
+                'confirm-delete-message': 'Delete this message?',
+                'confirm-banned-words': '⚠️ There are banned words (${violations}). Are you sure you want to save?',
+                
+                // Success Messages
+                'success-reset': 'Data successfully restored to default.',
+                
+                // Empty State
+                'empty-state': 'No menus saved yet.<br>Click the (+) button below to create a new one.',
+                
+                // Warning
+                'warning-title': 'WARNING',
+                'warning-banned': 'Words "${words}" are banned.',
+                
+                // Language
+                'current-lang': 'EN'
+            }
+        };
+
+        let currentLanguage = 'id';
+        const LANGUAGE_KEY = 'SellerProV15_Language';
+
+        // Fungsi untuk mengubah bahasa
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem(LANGUAGE_KEY, lang);
+            applyLanguage();
+            
+            // Update dropdown
+            document.querySelectorAll('.lang-option').forEach(option => {
+                option.classList.remove('active');
+                if (option.dataset.lang === lang) {
+                    option.classList.add('active');
+                }
+            });
+            
+            // Close dropdown
+            document.getElementById('lang-dropdown').classList.remove('show');
+        }
+
+        // Fungsi untuk menerapkan terjemahan
+        function applyLanguage() {
+            const lang = currentLanguage;
+            const t = translations[lang];
+            
+            // Update semua elemen dengan data-i18n attribute
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (t[key]) {
+                    element.textContent = t[key];
+                }
+            });
+            
+            // Update elemen khusus
+            document.getElementById('app-title').textContent = t['app-title'];
+            document.getElementById('reset-btn').textContent = t['reset-btn'];
+            document.getElementById('delete-btn').textContent = t['delete-btn'];
+            document.getElementById('info-title').textContent = t['info-title'];
+            document.getElementById('info-text').textContent = t['info-text'];
+            document.getElementById('toast-text').textContent = t['toast-text'];
+            document.getElementById('current-lang').textContent = t['current-lang'];
+            
+            // Render ulang untuk update teks dinamis
+            if (document.getElementById('app-container').innerHTML !== '') {
+                render();
+            }
+        }
+
+        // Fungsi untuk mendapatkan terjemahan
+        function t(key, variables = {}) {
+            let text = translations[currentLanguage][key] || translations['id'][key] || key;
+            
+            // Replace variables
+            Object.keys(variables).forEach(variable => {
+                text = text.replace(`\${${variable}}`, variables[variable]);
+            });
+            
+            return text;
+        }
+
+        // Toggle dropdown bahasa
+        function toggleLanguageDropdown() {
+            const dropdown = document.getElementById('lang-dropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        // Tutup dropdown saat klik di luar
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('lang-dropdown');
+            const langBtn = document.querySelector('.lang-btn');
+            
+            if (dropdown && !dropdown.contains(event.target) && !langBtn.contains(event.target)) {
+                dropdown.classList.remove('show');
+            }
+        });
+
+        // --- 4. INITIALIZATION & STORAGE ---
         function init() {
             // Dark Mode
             const savedTheme = localStorage.getItem('theme');
@@ -652,6 +942,15 @@
                 if(savedTheme === 'dark') document.getElementById('checkbox').checked = true;
             }
 
+            // Load Language
+            const savedLanguage = localStorage.getItem(LANGUAGE_KEY);
+            if (savedLanguage) {
+                currentLanguage = savedLanguage;
+            } else {
+                currentLanguage = 'id';
+                localStorage.setItem(LANGUAGE_KEY, 'id');
+            }
+
             // Load Data
             const savedData = localStorage.getItem(STORAGE_KEY);
             if (savedData) {
@@ -659,23 +958,26 @@
             } else {
                 appData = JSON.parse(JSON.stringify(defaultData));
             }
+            
+            // Apply language
+            applyLanguage();
             render();
         }
 
         function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(appData)); }
 
         function resetToDefault() {
-            const confirmReset = confirm("⚠️ PERINGATAN: Semua data script Anda akan dihapus dan dikembalikan ke pengaturan awal (pabrik).\n\nApakah Anda yakin?");
+            const confirmReset = confirm(t('confirm-reset'));
             if (confirmReset) {
                 appData = JSON.parse(JSON.stringify(defaultData));
                 saveData();
                 render();
-                alert("Data berhasil dikembalikan ke default.");
+                alert(t('success-reset'));
             }
         }
 
         function deleteAll() {
-            const confirmDel = confirm("⚠️ PERINGATAN KERAS: Menu dan semua script akan dihapus TOTAL!\n\nAnda harus membuatnya lagi dari nol.\nApakah Anda yakin?");
+            const confirmDel = confirm(t('confirm-delete-all'));
             if (confirmDel) {
                 appData = [];
                 saveData();
@@ -689,77 +991,121 @@
             container.innerHTML = '';
 
             if (appData.length === 0) {
-                container.innerHTML = '<div class="empty-state">Belum ada menu tersimpan.<br>Klik tombol (+) di bawah untuk membuat baru.</div>';
+                container.innerHTML = `<div class="empty-state">${t('empty-state')}</div>`;
                 return;
             }
 
-            appData.forEach((cat, catIndex) => {
-                const catDiv = document.createElement('div');
-                catDiv.className = 'category-item';
-                catDiv.id = `cat-item-${cat.id}`;
-                catDiv.dataset.index = catIndex;
-                catDiv.style.setProperty('--color-cat', cat.color || 'var(--color-cat-default)');
+            // Buat dua kolom untuk desktop
+            if (window.innerWidth >= 768) {
+                const leftColumn = document.createElement('div');
+                leftColumn.className = 'left-column';
+                const rightColumn = document.createElement('div');
+                rightColumn.className = 'right-column';
 
-                // Panel awalnya TERTUTUP (tidak ada class 'open')
-                catDiv.innerHTML = `
-                    <div class="category-header">
-                        <div class="drag-handle cat-handle"><i class="fas fa-grip-lines"></i></div>
-                        <div class="header-content" onclick="togglePanel('panel-${cat.id}', 'cat-item-${cat.id}', event)">
-                            <i class="fas ${cat.icon || 'fa-folder'}" style="color:var(--color-cat)"></i>
-                            <span id="txt-cat-${cat.id}">${cat.title}</span>
-                        </div>
-                        <div style="display:flex; gap:4px;">
-                            <button class="btn-icon btn-top" id="btn-edit-cat-${cat.id}" onclick="editCatMode('${cat.id}', ${catIndex}, event)"><i class="fas fa-pen"></i></button>
-                            <button class="btn-icon btn-top hidden" id="btn-save-cat-${cat.id}" onclick="saveCat('${cat.id}', ${catIndex}, event)" style="color:var(--success); border-color:var(--success)"><i class="fas fa-check"></i></button>
-                            <button class="btn-icon btn-top" onclick="deleteCat(${catIndex}, event)" style="color:var(--danger); border-color:var(--danger)"><i class="fas fa-trash-alt"></i></button>
-                        </div>
-                    </div>
-                    
-                    <div class="panel" id="panel-${cat.id}"> <!-- Tidak ada class 'open' di sini -->
-                        <div class="list-scripts" data-cat-index="${catIndex}"></div>
-                        <button class="btn" style="width:100%; justify-content:center; margin-top:10px; border-style:dashed;" onclick="addNewItem(${catIndex})">
-                            <i class="fas fa-plus"></i> Tambah Pesan
-                        </button>
-                    </div>
-                `;
+                // Bagi data menjadi dua bagian untuk dua kolom
+                const midPoint = Math.ceil(appData.length / 2);
+                const leftData = appData.slice(0, midPoint);
+                const rightData = appData.slice(midPoint);
 
-                const listContainer = catDiv.querySelector('.list-scripts');
-                cat.items.forEach((item, itemIndex) => {
-                    const card = document.createElement('div');
-                    card.className = 'script-card';
-                    card.innerHTML = `
-                        <div class="card-header">
-                            <div class="card-title">${item.title}</div>
-                            <div class="drag-handle card-handle"><i class="fas fa-bars"></i></div>
-                        </div>
-
-                        <div id="view-${item.id}">
-                            <div class="card-body" onclick="copyText('${item.text.replace(/'/g, "\\'")}')">${item.text}</div>
-                            <div class="tap-hint">Tap teks di atas untuk menyalin</div>
-                            
-                            <div class="btn-group" id="act-${item.id}" style="margin-top:8px;">
-                                <button class="btn btn-danger" onclick="deleteItem(${catIndex}, ${itemIndex}, event)"><i class="fas fa-trash-alt"></i> Hapus</button>
-                                <button class="btn" onclick="toggleEditItem('${item.id}', event)"><i class="fas fa-pen"></i> Edit</button>
-                            </div>
-                        </div>
-
-                        <div id="edit-${item.id}" class="edit-area hidden">
-                            <div id="alert-${item.id}" class="risk-alert hidden"></div>
-                            <input type="text" id="inp-title-${item.id}" class="form-input" value="${item.title}" placeholder="Judul Pesan">
-                            <textarea id="inp-text-${item.id}" class="form-input" onkeyup="handleInputCheck('${item.id}')">${item.text}</textarea>
-                            <div class="btn-group">
-                                <button class="btn btn-danger" onclick="deleteItem(${catIndex}, ${itemIndex})"><i class="fas fa-trash-alt"></i> Hapus</button>
-                                <button class="btn" onclick="toggleEditItem('${item.id}')">Batal</button>
-                                <button class="btn btn-primary" onclick="saveItem('${item.id}', ${catIndex}, ${itemIndex})"><i class="fas fa-save"></i> Simpan</button>
-                            </div>
-                        </div>
-                    `;
-                    listContainer.appendChild(card);
+                // Render kolom kiri
+                leftData.forEach((cat, catIndex) => {
+                    const catDiv = createCategoryItem(cat, catIndex);
+                    leftColumn.appendChild(catDiv);
                 });
 
-                container.appendChild(catDiv);
+                // Render kolom kanan
+                rightData.forEach((cat, catIndex) => {
+                    const actualIndex = catIndex + midPoint;
+                    const catDiv = createCategoryItem(cat, actualIndex);
+                    rightColumn.appendChild(catDiv);
+                });
+
+                container.appendChild(leftColumn);
+                container.appendChild(rightColumn);
+            } else {
+                // Untuk mobile, render semua dalam satu kolom
+                appData.forEach((cat, catIndex) => {
+                    const catDiv = createCategoryItem(cat, catIndex);
+                    container.appendChild(catDiv);
+                });
+            }
+
+            // Inisialisasi Sortable
+            initializeSortable();
+        }
+
+        // Fungsi untuk membuat item kategori
+        function createCategoryItem(cat, catIndex) {
+            const catDiv = document.createElement('div');
+            catDiv.className = 'category-item';
+            catDiv.id = `cat-item-${cat.id}`;
+            catDiv.dataset.index = catIndex;
+            catDiv.style.setProperty('--color-cat', cat.color || 'var(--color-cat-default)');
+
+            // Panel awalnya TERTUTUP (tidak ada class 'open')
+            catDiv.innerHTML = `
+                <div class="category-header">
+                    <div class="drag-handle cat-handle"><i class="fas fa-grip-lines"></i></div>
+                    <div class="header-content" onclick="togglePanel('panel-${cat.id}', 'cat-item-${cat.id}', event)">
+                        <i class="fas ${cat.icon || 'fa-folder'}" style="color:var(--color-cat)"></i>
+                        <span id="txt-cat-${cat.id}">${cat.title}</span>
+                    </div>
+                    <div style="display:flex; gap:4px;">
+                        <button class="btn-icon btn-top" id="btn-edit-cat-${cat.id}" onclick="editCatMode('${cat.id}', ${catIndex}, event)"><i class="fas fa-pen"></i></button>
+                        <button class="btn-icon btn-top hidden" id="btn-save-cat-${cat.id}" onclick="saveCat('${cat.id}', ${catIndex}, event)" style="color:var(--success); border-color:var(--success)"><i class="fas fa-check"></i></button>
+                        <button class="btn-icon btn-top" onclick="deleteCat(${catIndex}, event)" style="color:var(--danger); border-color:var(--danger)"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
                 
-                // Inisialisasi Sortable untuk mobile dan desktop
+                <div class="panel" id="panel-${cat.id}"> <!-- Tidak ada class 'open' di sini -->
+                    <div class="list-scripts" data-cat-index="${catIndex}"></div>
+                    <button class="btn" style="width:100%; justify-content:center; margin-top:10px; border-style:dashed;" onclick="addNewItem(${catIndex})">
+                        <i class="fas fa-plus"></i> ${t('add-message')}
+                    </button>
+                </div>
+            `;
+
+            const listContainer = catDiv.querySelector('.list-scripts');
+            cat.items.forEach((item, itemIndex) => {
+                const card = document.createElement('div');
+                card.className = 'script-card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="card-title">${item.title}</div>
+                        <div class="drag-handle card-handle"><i class="fas fa-bars"></i></div>
+                    </div>
+
+                    <div id="view-${item.id}">
+                        <div class="card-body" onclick="copyText('${item.text.replace(/'/g, "\\'")}')">${item.text}</div>
+                        <div class="tap-hint">${t('tap-hint')}</div>
+                        
+                        <div class="btn-group" id="act-${item.id}" style="margin-top:8px;">
+                            <button class="btn btn-danger" onclick="deleteItem(${catIndex}, ${itemIndex}, event)"><i class="fas fa-trash-alt"></i> ${t('delete-item')}</button>
+                            <button class="btn" onclick="toggleEditItem('${item.id}', event)"><i class="fas fa-pen"></i> ${t('edit-btn')}</button>
+                        </div>
+                    </div>
+
+                    <div id="edit-${item.id}" class="edit-area hidden">
+                        <div id="alert-${item.id}" class="risk-alert hidden"></div>
+                        <input type="text" id="inp-title-${item.id}" class="form-input" value="${item.title}" placeholder="${t('message-title')}">
+                        <textarea id="inp-text-${item.id}" class="form-input" onkeyup="handleInputCheck('${item.id}')">${item.text}</textarea>
+                        <div class="btn-group">
+                            <button class="btn btn-danger" onclick="deleteItem(${catIndex}, ${itemIndex})"><i class="fas fa-trash-alt"></i> ${t('delete-item')}</button>
+                            <button class="btn" onclick="toggleEditItem('${item.id}')">${t('cancel-btn')}</button>
+                            <button class="btn btn-primary" onclick="saveItem('${item.id}', ${catIndex}, ${itemIndex})"><i class="fas fa-save"></i> ${t('save-btn')}</button>
+                        </div>
+                    </div>
+                `;
+                listContainer.appendChild(card);
+            });
+
+            return catDiv;
+        }
+
+        // Inisialisasi Sortable
+        function initializeSortable() {
+            // Inisialisasi Sortable untuk script cards dalam setiap kategori
+            document.querySelectorAll('.list-scripts').forEach(listContainer => {
                 if (listContainer.children.length > 0) {
                     new Sortable(listContainer, { 
                         group: 'shared', 
@@ -772,20 +1118,80 @@
                 }
             });
 
-            // Inisialisasi Sortable untuk kategori
-            if (container.children.length > 0) {
-                new Sortable(container, { 
-                    animation: 150, 
-                    handle: '.cat-handle', 
-                    onEnd: function(evt) {
-                        const item = appData.splice(evt.oldIndex, 1)[0];
-                        appData.splice(evt.newIndex, 0, item);
-                        saveData();
-                    },
-                    ghostClass: 'sortable-ghost',
-                    chosenClass: 'sortable-chosen'
+            // Inisialisasi Sortable untuk kategori di setiap kolom
+            if (window.innerWidth >= 768) {
+                // Untuk desktop, kita punya dua kolom
+                document.querySelectorAll('.left-column, .right-column').forEach(column => {
+                    if (column.children.length > 0) {
+                        new Sortable(column, { 
+                            animation: 150, 
+                            handle: '.cat-handle', 
+                            onEnd: function(evt) {
+                                // Rebuild data berdasarkan urutan baru
+                                rebuildCategoryOrder();
+                            },
+                            ghostClass: 'sortable-ghost',
+                            chosenClass: 'sortable-chosen'
+                        });
+                    }
+                });
+            } else {
+                // Untuk mobile, semua kategori dalam satu container
+                const container = document.getElementById('app-container');
+                if (container.children.length > 0) {
+                    new Sortable(container, { 
+                        animation: 150, 
+                        handle: '.cat-handle', 
+                        onEnd: function(evt) {
+                            // Rebuild data berdasarkan urutan baru
+                            rebuildCategoryOrder();
+                        },
+                        ghostClass: 'sortable-ghost',
+                        chosenClass: 'sortable-chosen'
+                    });
+                }
+            }
+        }
+
+        // Rebuild urutan kategori
+        function rebuildCategoryOrder() {
+            const newAppData = [];
+            
+            if (window.innerWidth >= 768) {
+                // Untuk desktop, gabungkan kembali data dari kedua kolom
+                const leftColumn = document.querySelector('.left-column');
+                const rightColumn = document.querySelector('.right-column');
+                
+                if (leftColumn) {
+                    leftColumn.querySelectorAll('.category-item').forEach(catEl => {
+                        const index = parseInt(catEl.dataset.index);
+                        if (index < appData.length) {
+                            newAppData.push(appData[index]);
+                        }
+                    });
+                }
+                
+                if (rightColumn) {
+                    rightColumn.querySelectorAll('.category-item').forEach(catEl => {
+                        const index = parseInt(catEl.dataset.index);
+                        if (index < appData.length) {
+                            newAppData.push(appData[index]);
+                        }
+                    });
+                }
+            } else {
+                // Untuk mobile
+                const container = document.getElementById('app-container');
+                container.querySelectorAll('.category-item').forEach(catEl => {
+                    const index = parseInt(catEl.dataset.index);
+                    if (index < appData.length) {
+                        newAppData.push(appData[index]);
+                    }
                 });
             }
+            
+            appData = newAppData;
+            saveData();
         }
 
         // --- 6. INTERACTION LOGIC ---
@@ -796,26 +1202,55 @@
             localStorage.setItem('theme', theme);
         }
 
-		function togglePanel(panelId, parentId, e) {
-			if (e && e.target.tagName === 'INPUT') return;
-			
-			// Tutup SEMUA panel kategori lain!
-			document.querySelectorAll('.panel.open').forEach(function(panel) {
-				panel.classList.remove('open');
-			});
-			document.querySelectorAll('.category-item.active-parent').forEach(function(catItem) {
-				catItem.classList.remove('active-parent');
-			});
-			
-			// Toggle untuk kategori yang DIKLIK
-			const panel = document.getElementById(panelId);
-			const parentDiv = document.getElementById(parentId);
-			if (!panel.classList.contains('open')) {
-				panel.classList.add('open');
-				parentDiv.classList.add('active-parent');
-			}
-			// Jika sudah open, cukup tutup (biarkan, sudah tertutup di awal)
-		}
+        // Variabel untuk melacak panel yang sedang terbuka PER KOLOM
+        let currentlyOpenPanels = { left: null, right: null };
+
+        function togglePanel(panelId, parentId, e) {
+            // Cek apakah yang diklik adalah input field (saat mode edit)
+            if (e && e.target.tagName === 'INPUT') return; 
+
+            const panel = document.getElementById(panelId);
+            const parentDiv = document.getElementById(parentId);
+            
+            // Tentukan kolom mana (kiri atau kanan)
+            let column = 'left';
+            if (window.innerWidth >= 768) {
+                // Cari apakah parentDiv berada di kolom kiri atau kanan
+                const leftColumn = document.querySelector('.left-column');
+                const rightColumn = document.querySelector('.right-column');
+                
+                if (leftColumn && leftColumn.contains(parentDiv)) {
+                    column = 'left';
+                } else if (rightColumn && rightColumn.contains(parentDiv)) {
+                    column = 'right';
+                }
+            } else {
+                // Untuk mobile, hanya ada satu kolom
+                column = 'left';
+            }
+            
+            // Jika panel ini sudah terbuka, tutup saja
+            if (panel.classList.contains('open')) {
+                panel.classList.remove('open');
+                parentDiv.classList.remove('active-parent');
+                currentlyOpenPanels[column] = null;
+                return;
+            }
+            
+            // Tutup panel yang sedang terbuka di kolom yang sama (jika ada)
+            if (currentlyOpenPanels[column] && currentlyOpenPanels[column] !== panel) {
+                currentlyOpenPanels[column].classList.remove('open');
+                const previousParent = currentlyOpenPanels[column].parentElement;
+                if (previousParent) {
+                    previousParent.classList.remove('active-parent');
+                }
+            }
+            
+            // Buka panel yang baru diklik
+            panel.classList.add('open');
+            parentDiv.classList.add('active-parent');
+            currentlyOpenPanels[column] = panel;
+        }
 
         function checkContent(text) {
             return BANNED_KEYWORDS.filter(word => text.toLowerCase().includes(word));
@@ -827,7 +1262,7 @@
             const violations = checkContent(text);
             if (violations.length > 0) {
                 alertBox.classList.remove('hidden');
-                alertBox.innerHTML = `<i class="fas fa-exclamation-triangle"></i> <b>PERINGATAN:</b> Kata "<b>${violations.join(', ')}</b>" dilarang.`;
+                alertBox.innerHTML = `<i class="fas fa-exclamation-triangle"></i> <b>${t('warning-title')}:</b> ${t('warning-banned', {words: violations.join(', ')})}`;
             } else {
                 alertBox.classList.add('hidden');
             }
@@ -873,7 +1308,11 @@
 
         function deleteCat(index, e) {
             e.stopPropagation();
-            if(confirm("Hapus kategori folder ini?")) { appData.splice(index, 1); saveData(); render(); }
+            if(confirm(t('confirm-delete-category'))) { 
+                appData.splice(index, 1); 
+                saveData(); 
+                render(); 
+            }
         }
 
         function toggleEditItem(itemId, e) {
@@ -882,17 +1321,19 @@
             const edit = document.getElementById(`edit-${itemId}`);
             
             if(edit.classList.contains('hidden')){
-                view.classList.add('hidden'); edit.classList.remove('hidden');
+                view.classList.add('hidden'); 
+                edit.classList.remove('hidden');
                 handleInputCheck(itemId);
             } else {
-                view.classList.remove('hidden'); edit.classList.add('hidden');
+                view.classList.remove('hidden'); 
+                edit.classList.add('hidden');
             }
         }
 
         function saveItem(itemId, catIndex, itemIndex) {
             const text = document.getElementById(`inp-text-${itemId}`).value;
             const violations = checkContent(text);
-            if (violations.length > 0 && !confirm(`⚠️ Ada kata terlarang (${violations.join(', ')}). Yakin simpan?`)) return;
+            if (violations.length > 0 && !confirm(t('confirm-banned-words', {violations: violations.join(', ')}))) return;
             
             appData[catIndex].items[itemIndex].title = document.getElementById(`inp-title-${itemId}`).value;
             appData[catIndex].items[itemIndex].text = text;
@@ -905,9 +1346,26 @@
             // Re-open panel
             setTimeout(() => {
                 const panel = document.getElementById(`panel-${catId}`);
-                if (panel) {
+                const parentDiv = document.getElementById(`cat-item-${catId}`);
+                
+                if (panel && parentDiv) {
                     panel.classList.add('open');
-                    document.getElementById(`cat-item-${catId}`).classList.add('active-parent');
+                    parentDiv.classList.add('active-parent');
+                    
+                    // Update currentlyOpenPanels
+                    let column = 'left';
+                    if (window.innerWidth >= 768) {
+                        const leftColumn = document.querySelector('.left-column');
+                        const rightColumn = document.querySelector('.right-column');
+                        
+                        if (leftColumn && leftColumn.contains(parentDiv)) {
+                            column = 'left';
+                        } else if (rightColumn && rightColumn.contains(parentDiv)) {
+                            column = 'right';
+                        }
+                    }
+                    
+                    currentlyOpenPanels[column] = panel;
                 }
             }, 50);
         }
@@ -915,7 +1373,7 @@
         function deleteItem(catIndex, itemIndex, e) {
             if(e) e.stopPropagation();
 
-            if(confirm("Hapus pesan ini?")) {
+            if(confirm(t('confirm-delete-message'))) {
                 const catId = appData[catIndex].id;
                 appData[catIndex].items.splice(itemIndex, 1);
                 saveData(); 
@@ -924,9 +1382,26 @@
                      render();
                     setTimeout(() => {
                         const panel = document.getElementById(`panel-${catId}`);
-                        if (panel) {
+                        const parentDiv = document.getElementById(`cat-item-${catId}`);
+                        
+                        if (panel && parentDiv) {
                             panel.classList.add('open');
-                            document.getElementById(`cat-item-${catId}`).classList.add('active-parent');
+                            parentDiv.classList.add('active-parent');
+                            
+                            // Update currentlyOpenPanels
+                            let column = 'left';
+                            if (window.innerWidth >= 768) {
+                                const leftColumn = document.querySelector('.left-column');
+                                const rightColumn = document.querySelector('.right-column');
+                                
+                                if (leftColumn && leftColumn.contains(parentDiv)) {
+                                    column = 'left';
+                                } else if (rightColumn && rightColumn.contains(parentDiv)) {
+                                    column = 'right';
+                                }
+                            }
+                            
+                            currentlyOpenPanels[column] = panel;
                         }
                     }, 50);
                 } else {
@@ -936,19 +1411,51 @@
         }
 
         function addNewItem(catIndex) {
-            appData[catIndex].items.push({ id: Date.now(), title: 'Judul Pesan Baru', text: 'Tulis balasan di sini...' });
-            saveData(); render();
+            appData[catIndex].items.push({ 
+                id: Date.now(), 
+                title: t('message-title'), 
+                text: t('message-content') 
+            });
+            saveData(); 
+            render();
             setTimeout(() => {
                 const catId = appData[catIndex].id;
-                document.getElementById(`panel-${catId}`).classList.add('open');
-                document.getElementById(`cat-item-${catId}`).classList.add('active-parent');
+                const panel = document.getElementById(`panel-${catId}`);
+                const parentDiv = document.getElementById(`cat-item-${catId}`);
+                
+                if (panel && parentDiv) {
+                    panel.classList.add('open');
+                    parentDiv.classList.add('active-parent');
+                    
+                    // Update currentlyOpenPanels
+                    let column = 'left';
+                    if (window.innerWidth >= 768) {
+                        const leftColumn = document.querySelector('.left-column');
+                        const rightColumn = document.querySelector('.right-column');
+                        
+                        if (leftColumn && leftColumn.contains(parentDiv)) {
+                            column = 'left';
+                        } else if (rightColumn && rightColumn.contains(parentDiv)) {
+                            column = 'right';
+                        }
+                    }
+                    
+                    currentlyOpenPanels[column] = panel;
+                }
             }, 50);
         }
 
         function addNewCategory() {
             const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
-            appData.push({ id: Date.now(), title: 'Folder Baru', icon: 'fa-folder', color: randomColor, items: [] });
-            saveData(); render();
+            appData.push({ 
+                id: Date.now(), 
+                title: t('category-default'), 
+                icon: 'fa-folder', 
+                color: randomColor, 
+                items: [] 
+            });
+            saveData(); 
+            render();
             window.scrollTo(0, document.body.scrollHeight);
         }
 
