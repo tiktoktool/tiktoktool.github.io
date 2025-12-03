@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Seller Pro V15 - 2 Column Split</title>
+    <title>Seller Tiktok Chat Pro Custom</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
@@ -57,7 +57,7 @@
             margin: 0;
             padding: 0;
             transition: var(--transition);
-            padding-bottom: 100px;
+            padding-bottom: 120px;
             font-size: 14px;
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
@@ -545,12 +545,12 @@
         /* Toast Notification */
         #toast {
             visibility: hidden;
-            min-width: 250px;
+            min-width: 300px;
             background-color: var(--success);
             color: white;
             text-align: center;
             border-radius: 8px;
-            padding: 12px;
+            padding: 16px 20px;
             position: fixed;
             z-index: 1000;
             left: 50%;
@@ -560,6 +560,11 @@
             box-shadow: var(--shadow-lg);
             transition: visibility 0s, opacity 0.3s ease;
             opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
         }
         
         #toast.show {
@@ -596,6 +601,265 @@
                 margin: 20px 10px 10px;
                 padding: 12px;
             }
+        }
+
+        /* Storage Info Panel */
+        .storage-info-panel {
+            max-width: 600px;
+            margin: 20px auto 10px;
+            padding: 12px 15px;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .storage-info-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-grow: 1;
+        }
+        
+        .storage-info-text {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        
+        .storage-info-text strong {
+            color: var(--primary);
+        }
+        
+        .storage-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .btn-clear-storage {
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: 6px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+        
+        .btn-clear-storage:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
+        }
+        
+        .btn-check-storage {
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: 6px;
+            background: var(--bg-panel);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+        
+        .btn-check-storage:hover {
+            background: var(--bg-body);
+        }
+        
+        @media (max-width: 768px) {
+            .storage-info-panel {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            
+            .storage-info-content {
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+            
+            .storage-actions {
+                justify-content: center;
+            }
+        }
+
+        /* Copy Success Animation */
+        @keyframes copySuccess {
+            0% { transform: translateX(-50%) scale(0.9); opacity: 0; }
+            70% { transform: translateX(-50%) scale(1.05); opacity: 1; }
+            100% { transform: translateX(-50%) scale(1); opacity: 1; }
+        }
+        
+        .copy-success {
+            animation: copySuccess 0.4s ease-out;
+        }
+
+        /* Multi-language Support Badge */
+        .lang-badge {
+            position: fixed;
+            top: 80px;
+            right: 15px;
+            background: var(--primary);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            z-index: 40;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .lang-badge {
+                top: 70px;
+                right: 10px;
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+        }
+
+        /* Modal untuk Create New Folder */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            width: 90%;
+            max-width: 400px;
+            max-height: 80vh;
+            overflow-y: auto;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 20px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .modal-close:hover {
+            background: var(--bg-panel);
+            color: var(--danger);
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-main);
+            font-size: 14px;
+        }
+        
+        .form-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 5px;
+            line-height: 1.4;
+        }
+        
+        /* Example Item */
+        .example-item {
+            background: var(--bg-panel);
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 20px;
+            border: 1px dashed var(--border);
+        }
+        
+        .example-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .example-text {
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--text-muted);
         }
 
         /* Utility Classes */
@@ -639,6 +903,42 @@
             animation: fadeIn 0.3s ease;
         }
 
+        /* Responsive adjustments for mobile landscape */
+        @media (max-width: 767px) and (orientation: landscape) {
+            body {
+                padding-bottom: 80px;
+            }
+            
+            .sticky-header {
+                padding: 8px 10px;
+            }
+            
+            h2 {
+                font-size: 16px;
+            }
+            
+            #app-container {
+                margin: 10px auto;
+                gap: 10px;
+            }
+            
+            .category-item {
+                min-height: 50px;
+            }
+            
+            .category-header {
+                padding: 10px 12px;
+            }
+            
+            .fab {
+                bottom: 15px;
+                right: 15px;
+                width: 50px;
+                height: 50px;
+                font-size: 18px;
+            }
+        }
+
         /* Perbaikan untuk iOS */
         @supports (-webkit-touch-callout: none) {
             .category-header, .card-body, .btn, .fab {
@@ -651,7 +951,7 @@
 
     <div class="sticky-header">
         <div class="header-left">
-            <h2 id="app-title">Seller Pro V15</h2>
+            <h2 id="app-title">Seller Tiktok Chat Pro Custom</h2>
             <div class="theme-switch-wrapper">
                 <label class="theme-switch" for="checkbox">
                     <input type="checkbox" id="checkbox" onchange="toggleTheme(this)">
@@ -664,15 +964,15 @@
             <div class="language-selector">
                 <button class="lang-btn" onclick="toggleLanguageDropdown()">
                     <i class="fas fa-globe"></i>
-                    <span id="current-lang">ID</span>
+                    <span id="current-lang">EN</span>
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="lang-dropdown" id="lang-dropdown">
-                    <div class="lang-option active" data-lang="id" onclick="changeLanguage('id')">
-                        <span>🇮🇩 Indonesia</span>
-                    </div>
-                    <div class="lang-option" data-lang="en" onclick="changeLanguage('en')">
+                    <div class="lang-option active" data-lang="en" onclick="changeLanguage('en')">
                         <span>🇺🇸 English</span>
+                    </div>
+                    <div class="lang-option" data-lang="id" onclick="changeLanguage('id')">
+                        <span>🇮🇩 Indonesia</span>
                     </div>
                 </div>
             </div>
@@ -681,16 +981,39 @@
                 <i class="fas fa-rotate-left"></i> <span id="reset-btn">Reset</span>
             </button>
             <button class="btn-top btn-clear" onclick="deleteAll()">
-                <i class="fas fa-trash-alt"></i> <span id="delete-btn">Hapus</span>
+                <i class="fas fa-trash-alt"></i> <span id="delete-btn">Delete All</span>
             </button>
         </div>
     </div>
 
+    <div class="lang-badge">
+        <i class="fas fa-language"></i> Multi-language
+    </div>
+
     <div class="info-bar">
-        <i class="fas fa-shield-alt"></i> <b id="info-title">INFO PENTING:</b> <span id="info-text">Hindari kata sensitif di balasan chat.</span>
+        <i class="fas fa-shield-alt"></i> <b id="info-title">IMPORTANT INFO:</b> <span id="info-text">Avoid sensitive words in chat replies. Supports all languages input!</span>
     </div>
 
     <div id="app-container"></div>
+
+    <!-- Storage Info Panel -->
+    <div class="storage-info-panel">
+        <div class="storage-info-content">
+            <i class="fas fa-database" style="color: var(--primary);"></i>
+            <div class="storage-info-text">
+                <strong id="storage-title">LOCAL STORAGE:</strong> 
+                <span id="storage-text">All data saved automatically in browser cache (LocalStorage) - NO EXPIRATION! Data remains available even after closing browser. Supports ANY language input!</span>
+            </div>
+        </div>
+        <div class="storage-actions">
+            <button class="btn-check-storage" onclick="checkStorageUsage()">
+                <i class="fas fa-chart-pie"></i> <span id="check-storage-btn">Check Storage</span>
+            </button>
+            <button class="btn-clear-storage" onclick="clearAllStorage()">
+                <i class="fas fa-broom"></i> <span id="clear-storage-btn">Clear All</span>
+            </button>
+        </div>
+    </div>
 
     <!-- Flag Counter Section -->
     <div class="flag-counter-container">
@@ -702,126 +1025,122 @@
         </a>
     </div>
 
-    <div class="fab" onclick="addNewCategory()">
+    <div class="fab" onclick="showCreateFolderModal()">
         <i class="fas fa-plus"></i>
     </div>
 
-    <div id="toast"><i class="fas fa-check-circle"></i> <span id="toast-text">Teks berhasil disalin!</span></div>
+    <!-- Modal Create New Folder -->
+    <div class="modal-overlay" id="createFolderModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title" id="modal-title">Create New Folder</div>
+                <button class="modal-close" onclick="hideCreateFolderModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label" id="folder-name-label">Folder Name:</label>
+                    <input type="text" class="form-input" id="newFolderName" placeholder="New Folder Name" value="New Folder Name">
+                    <div class="form-hint" id="folder-name-hint">Enter a descriptive name for your new folder (e.g., "Welcome Messages", "Shipping Info", etc.)</div>
+                </div>
+                
+                <div class="example-item">
+                    <div class="example-title" id="example-title">📁 Example Folder Created:</div>
+                    <div class="example-text" id="example-text">
+                        After creating, this folder will contain:<br>
+                        1. An example message showing how to use<br>
+                        2. You can add more messages by clicking "Add Message"<br>
+                        3. Tap any message text to copy it to clipboard<br>
+                        4. Edit or delete messages using the buttons
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="hideCreateFolderModal()">
+                    <i class="fas fa-times"></i> <span id="cancel-btn-modal">Cancel</span>
+                </button>
+                <button class="btn btn-primary" onclick="createNewFolderFromModal()">
+                    <i class="fas fa-check"></i> <span id="create-btn">Create Folder</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast"><i class="fas fa-check-circle"></i> <span id="toast-text">✅ Text copied successfully!</span></div>
 
     <script>
         // --- 1. DATA MASTER ---
         const defaultData = [
-            { id: 'cat_0', title: 'Cek Stok (Ready/Habis)', icon: 'fa-cubes', color: '#3b82f6', 
+            { id: 'cat_0', title: 'Check Stock (Ready/Out)', icon: 'fa-cubes', color: '#3b82f6', 
                 items: [
-                    { id: 'm01', title: 'Barang Ready Stock', text: 'Hai Kak! Produk ini READY STOCK dan siap kirim ya. Selama varian masih bisa diklik, berarti barang tersedia. Silakan langsung di-checkout sebelum kehabisan! 🔥' },
-                    { id: 'm02', title: 'Stok Habis/Kosong', text: 'Mohon maaf Kak, untuk varian tersebut saat ini sedang habis (Sold Out). 🙏 Kami akan restock secepatnya. Boleh follow toko kami untuk update terbarunya ya. Terima kasih!' },
-                    { id: 'm03', title: 'Stok Menipis', text: 'Hai Kak, stoknya tinggal sedikit lagi nih. Siapa cepat dia dapat ya Kak. Yuk segera diamankan pesananannya sekarang! 😊' }
+                    { id: 'm01', title: 'Product Ready Stock', text: 'Hi! This product is READY STOCK and ready to ship. As long as the variant can still be clicked, the item is available. Please checkout immediately before it runs out! 🔥' },
+                    { id: 'm02', title: 'Out of Stock/Empty', text: 'Sorry, for that variant is currently out of stock (Sold Out). 🙏 We will restock as soon as possible. Please follow our store for the latest updates. Thank you!' },
+                    { id: 'm03', title: 'Stock Running Low', text: 'Hi, stock is running low. First come first served. Secure your order now! 😊' }
                 ]},
-            { id: 'cat_1', title: 'Komplain & Review Buruk', icon: 'fa-triangle-exclamation', color: '#ef4444', 
+            { id: 'cat_1', title: 'Complaints & Bad Reviews', icon: 'fa-triangle-exclamation', color: '#ef4444', 
                 items: [
-                    { id: 'm11', title: 'Minta Maaf & Solusi (Sopan)', text: 'Mohon maaf atas ketidaknyamanannya, Kak. Kepuasan Kakak adalah prioritas kami. Boleh tolong infokan detail kendalanya via chat ini agar kami bisa bantu berikan solusi terbaik? Terima kasih.' },
-                    { id: 'm12', title: 'Respons Bintang 1 Tanpa Alasan', text: 'Halo Kak, mohon maaf jika produk kami tidak memenuhi ekspektasi. Kami selalu berusaha memberikan yang terbaik. Jika ada cacat produk, mohon chat kami untuk proses klaim garansi/retur ya Kak. 🙏' }
+                    { id: 'm11', title: 'Apology & Solution (Polite)', text: 'We apologize for the inconvenience. Your satisfaction is our priority. Could you please provide details about the issue via this chat so we can help provide the best solution? Thank you.' },
+                    { id: 'm12', title: 'Response to 1 Star Without Reason', text: 'Hello, we apologize if our product did not meet expectations. We always strive to provide the best. If there is a product defect, please chat us for the warranty/return claim process. 🙏' }
                 ]},
-            { id: 'cat_2', title: 'Balasan Ulasan Bintang 5', icon: 'fa-star', color: '#f59e0b', 
+            { id: 'cat_2', title: '5 Star Review Replies', icon: 'fa-star', color: '#f59e0b', 
                 items: [
-                    { id: 'm21', title: 'Terima Kasih Standard', text: 'Terima kasih banyak ulasan bintang 5-nya Kak! 😍 Senang sekali Kakak suka dengan produknya. Semoga awet dan ditunggu orderan selanjutnya ya!' },
-                    { id: 'm22', title: 'Doa Rezeki (Ramah)', text: 'Alhamdulillah, terima kasih Kak sudah belanja di toko kami. Semoga rezekinya lancar terus ya Kak. Ditunggu next ordernya! ❤️' }
+                    { id: 'm21', title: 'Standard Thank You', text: 'Thank you so much for the 5 star review! 😍 We are very happy that you like our product. May it last long and we look forward to your next order!' },
+                    { id: 'm22', title: 'Blessing Prayer (Friendly)', text: 'Alhamdulillah, thank you for shopping at our store. May your prosperity continue to flow. We await your next order! ❤️' }
                 ]},
-            { id: 'cat_3', title: 'Pengiriman & Logistik', icon: 'fa-truck-fast', color: '#10b981', 
+            { id: 'cat_3', title: 'Shipping & Logistics', icon: 'fa-truck-fast', color: '#10b981', 
                 items: [
-                    { id: 'm31', title: 'Kapan Dikirim?', text: 'Pesanan yang masuk sebelum jam 15.00 akan dikirim hari ini ya Kak. Resi update otomatis malam hari. Mohon ditunggu update statusnya di aplikasi. Terima kasih! 🚚' },
-                    { id: 'm32', title: 'Paket Belum Jalan (Stuck)', text: 'Halo Kak, fisik paket sudah kami serahkan ke pihak ekspedisi ya. Saat ini status di sistem mungkin delay update dari pihak kurirnya. Mohon kesediaannya menunggu 1x24 jam kedepan ya Kak. 🙏' },
-                    { id: 'm33', title: 'Paket Hilang/Lama Sampai', text: 'Mohon maaf atas keterlambatannya Kak. Kami sudah bantu follow-up ke pihak ekspedisi terkait paket Kakak. Jika dalam 2 hari tidak ada pergerakan, silakan ajukan pengembalian dana (paket hilang) via sistem ya Kak.' }
+                    { id: 'm31', title: 'When Will It Be Shipped?', text: 'Orders placed before 3:00 PM will be shipped today. Tracking number updates automatically in the evening. Please wait for status updates in the app. Thank you! 🚚' },
+                    { id: 'm32', title: 'Package Not Moving (Stuck)', text: 'Hello, the physical package has been handed over to the expedition party. Currently the status in the system may be delayed update from the courier side. Please wait 1x24 hours ahead. 🙏' },
+                    { id: 'm33', title: 'Package Lost/Late Arrival', text: 'We apologize for the delay. We have helped follow up with the expedition regarding your package. If there is no movement within 2 days, please submit a refund request (lost package) via the system.' }
                 ]},
-            { id: 'cat_4', title: 'Paket Tidak Sesuai/Rusak', icon: 'fa-box-open', color: '#6366f1', 
+            { id: 'cat_4', title: 'Wrong/Damaged Package', icon: 'fa-box-open', color: '#6366f1', 
                 items: [
-                    { id: 'm41', title: 'Minta Bukti Video', text: 'Mohon maaf atas kendalanya Kak. 🙏 Bisa tolong lampirkan video unboxing (buka paket) agar bisa kami bantu pengecekan dengan tim packing? Kami akan bertanggung jawab penuh jika ada kesalahan.' },
-                    { id: 'm42', title: 'Barang Cacat/Rusak', text: 'Waduh, mohon maaf sekali barang sampai dalam kondisi rusak. Jangan selesaikan pesanan dulu ya Kak. Silakan ajukan pengembalian barang/dana via aplikasi, nanti kami approve segera.' }
+                    { id: 'm41', title: 'Request Video Evidence', text: 'We apologize for the trouble. 🙏 Could you please attach an unboxing video (opening package) so we can help check with the packing team? We will be fully responsible if there is an error.' },
+                    { id: 'm42', title: 'Defective/Damaged Item', text: 'Oh no, we are very sorry the item arrived damaged. Please do not complete the order yet. Please submit a return/refund request via the application, we will approve immediately.' }
                 ]},
-            { id: 'cat_5', title: 'Masalah Return (Pengembalian)', icon: 'fa-rotate-left', color: '#a855f7', 
+            { id: 'cat_5', title: 'Return Issues', icon: 'fa-rotate-left', color: '#a855f7', 
                 items: [
-                    { id: 'm51', title: 'Cara Mengajukan Return', text: 'Halo Kak, untuk proses retur yang aman, silakan klik tombol \'Ajukan Pengembalian\' pada rincian pesanan Kakak. Ikuti instruksi di aplikasi untuk mendapatkan resi pengembalian gratis ongkir.' },
-                    { id: 'm52', title: 'Return Ditolak (Salah Alasan)', text: 'Halo Kak, pengajuan returnya kami tolak dulu karena alasan yang dipilih kurang tepat. Silakan ajukan ulang dengan memilih alasan "Barang Berubah Pikiran" atau "Produk Tidak Berfungsi" ya Kak agar bisa kami proses.' }
+                    { id: 'm51', title: 'How to Submit Return', text: 'Hello, for a safe return process, please click the \'Submit Return\' button in your order details. Follow the instructions in the application to get a free return shipping tracking number.' },
+                    { id: 'm52', title: 'Return Rejected (Wrong Reason)', text: 'Hello, we rejected the return request because the reason chosen was not appropriate. Please resubmit by selecting the reason "Changed Mind" or "Product Not Working" so we can process it.' }
                 ]},
-            { id: 'cat_6', title: 'Barang Tertukar', icon: 'fa-arrow-right-arrow-left', color: '#ec4899', 
+            { id: 'cat_6', title: 'Swapped Items', icon: 'fa-arrow-right-arrow-left', color: '#ec4899', 
                 items: [
-                    { id: 'm61', title: 'Salah Kirim Varian', text: 'Mohon maaf Kak, sepertinya tim packing kami salah menempelkan resi/mengambil barang. 🙏 Kami akan kirimkan barang penggantinya. Silakan ajukan penukaran barang di sistem ya Kak.' }
+                    { id: 'm61', title: 'Wrong Variant Sent', text: 'We apologize, it seems our packing team stuck the wrong tracking number/took the wrong item. 🙏 We will send the replacement item. Please submit an item exchange request in the system.' }
                 ]},
-            { id: 'cat_7', title: 'Produk Tidak Berfungsi (Trouble)', icon: 'fa-plug', color: '#f97316', 
+            { id: 'cat_7', title: 'Product Not Working (Trouble)', icon: 'fa-plug', color: '#f97316', 
                 items: [
-                    { id: 'm71', title: 'Panduan Pemakaian', text: 'Halo Kak, untuk produk ini apakah sudah dicoba [Isi Instruksi Singkat, misal: cas dulu 2 jam]? Terkadang produk butuh daya awal. Jika masih tidak menyala, kami siap ganti baru.' }
+                    { id: 'm71', title: 'Usage Guide', text: 'Hello, for this product, have you tried [Fill Brief Instruction, e.g.: charge for 2 hours first]? Sometimes products need initial power. If it still doesn\'t work, we are ready to replace it with a new one.' }
                 ]},
-            { id: 'cat_8', title: 'Pertanyaan Umum (COD/Asli)', icon: 'fa-circle-question', color: '#06b6d4', 
+            { id: 'cat_8', title: 'Frequently Asked Questions (COD/Original)', icon: 'fa-circle-question', color: '#06b6d4', 
                 items: [
-                    { id: 'm81', title: 'Apakah Bisa COD?', text: 'Bisa banget Kak! Toko kami support COD (Bayar di Tempat) ke seluruh Indonesia. Pastikan alamat lengkap dan nomor HP aktif ya saat checkout. Ditunggu! 😊' },
-                    { id: 'm82', title: 'Apakah Produk Original?', text: 'Kami jamin 100% Original Kak. Barang kami ambil langsung dari distributor resmi. Ada garansi uang kembali jika terbukti tidak ori. Silakan diorder dengan tenang. ✨' },
-                    { id: 'm83', title: 'Minta Realpict', text: 'Foto yang dipajang di etalase sudah foto asli (Real Picture) dari tim kami ya Kak. Apa yang Kakak lihat, itu yang akan Kakak dapatkan. 👌' }
+                    { id: 'm81', title: 'Is COD Available?', text: 'Yes, definitely! Our store supports COD (Cash on Delivery) throughout Indonesia. Make sure your address is complete and your mobile number is active when checking out. We await your order! 😊' },
+                    { id: 'm82', title: 'Is the Product Original?', text: 'We guarantee 100% Original. Our items are taken directly from official distributors. There is a money back guarantee if proven not original. Please order with peace of mind. ✨' },
+                    { id: 'm83', title: 'Request Real Photo', text: 'The photos displayed in the showcase are original photos (Real Picture) from our team. What you see is what you will get. 👌' }
                 ]}
         ];
 
         // --- 2. LOGIKA UTAMA ---
         let appData = [];
-        const STORAGE_KEY = 'SellerProV15_Data'; 
+        const STORAGE_KEY = 'SellerTiktokChatPro_Data'; 
         const BANNED_KEYWORDS = ["whatsapp", "wa ", "08", "no hp", "ig", "instagram", "shopee", "tokopedia", "lazada", "tf", "transfer", "bca", "mandiri", "diluar aplikasi", "putih instan", "permanen", "garansi uang kembali", "kw", "ori reject"];
 
         // --- 3. MULTI BAHASA (i18n) ---
         const translations = {
-            id: {
-                // Header
-                'app-title': 'Seller Pro V15',
-                'reset-btn': 'Reset',
-                'delete-btn': 'Hapus',
-                'info-title': 'INFO PENTING:',
-                'info-text': 'Hindari kata sensitif di balasan chat.',
-                'toast-text': 'Teks berhasil disalin!',
-                
-                // Categories (default tetap Indonesia)
-                'category-default': 'Folder Baru',
-                'add-message': 'Tambah Pesan',
-                'message-title': 'Judul Pesan',
-                'message-content': 'Tulis balasan di sini...',
-                'tap-hint': 'Tap teks di atas untuk menyalin',
-                
-                // Buttons
-                'delete-item': 'Hapus',
-                'edit-btn': 'Edit',
-                'cancel-btn': 'Batal',
-                'save-btn': 'Simpan',
-                
-                // Confirmation Messages
-                'confirm-reset': '⚠️ PERINGATAN: Semua data script Anda akan dihapus dan dikembalikan ke pengaturan awal (pabrik).\n\nApakah Anda yakin?',
-                'confirm-delete-all': '⚠️ PERINGATAN KERAS: Menu dan semua script akan dihapus TOTAL!\n\nAnda harus membuatnya lagi dari nol.\nApakah Anda yakin?',
-                'confirm-delete-category': 'Hapus kategori folder ini?',
-                'confirm-delete-message': 'Hapus pesan ini?',
-                'confirm-banned-words': '⚠️ Ada kata terlarang (${violations}). Yakin simpan?',
-                
-                // Success Messages
-                'success-reset': 'Data berhasil dikembalikan ke default.',
-                
-                // Empty State
-                'empty-state': 'Belum ada menu tersimpan.<br>Klik tombol (+) di bawah untuk membuat baru.',
-                
-                // Warning
-                'warning-title': 'PERINGATAN',
-                'warning-banned': 'Kata "${words}" dilarang.',
-                
-                // Language
-                'current-lang': 'ID'
-            },
             en: {
                 // Header
-                'app-title': 'Seller Pro V15',
+                'app-title': 'Seller Tiktok Chat Pro Custom',
                 'reset-btn': 'Reset',
-                'delete-btn': 'Delete',
+                'delete-btn': 'Delete All',
                 'info-title': 'IMPORTANT INFO:',
-                'info-text': 'Avoid sensitive words in chat replies.',
-                'toast-text': 'Text copied successfully!',
+                'info-text': 'Avoid sensitive words in chat replies. Supports all languages input!',
+                'toast-text': '✅ Text copied successfully!',
                 
                 // Categories
-                'category-default': 'New Folder',
+                'category-default': 'New Folder Name',
                 'add-message': 'Add Message',
                 'message-title': 'Message Title',
-                'message-content': 'Write reply here...',
+                'message-content': 'Write reply here... (Supports ALL languages!)',
                 'tap-hint': 'Tap text above to copy',
                 
                 // Buttons
@@ -848,12 +1167,92 @@
                 'warning-banned': 'Words "${words}" are banned.',
                 
                 // Language
-                'current-lang': 'EN'
+                'current-lang': 'EN',
+                
+                // Storage Info
+                'storage-title': 'LOCAL STORAGE:',
+                'storage-text': 'All data saved automatically in browser cache (LocalStorage) - NO EXPIRATION! Data remains available even after closing browser. Supports ANY language input!',
+                'check-storage-btn': 'Check Storage',
+                'clear-storage-btn': 'Clear All',
+                'confirm-clear-storage': '⚠️ WARNING: All data including theme and language will be removed from browser cache.\n\nApp will return to factory settings.\nAre you sure?',
+                'storage-cleared': '✅ All cache data has been cleared.',
+                'storage-info': 'Data stored: ${size} KB (Supports unlimited languages!)',
+                'storage-empty': 'No data stored',
+                
+                // Modal
+                'modal-title': 'Create New Folder',
+                'folder-name-label': 'Folder Name:',
+                'folder-name-hint': 'Enter a descriptive name for your new folder (e.g., "Welcome Messages", "Shipping Info", etc.)',
+                'example-title': '📁 Example Folder Created:',
+                'example-text': 'After creating, this folder will contain:<br>1. An example message showing how to use<br>2. You can add more messages by clicking "Add Message"<br>3. Tap any message text to copy it to clipboard<br>4. Edit or delete messages using the buttons',
+                'cancel-btn-modal': 'Cancel',
+                'create-btn': 'Create Folder'
+            },
+            id: {
+                // Header
+                'app-title': 'Seller Tiktok Chat Pro Custom',
+                'reset-btn': 'Reset',
+                'delete-btn': 'Hapus Semua',
+                'info-title': 'INFO PENTING:',
+                'info-text': 'Hindari kata sensitif di balasan chat. Mendukung input semua bahasa!',
+                'toast-text': '✅ Teks berhasil disalin!',
+                
+                // Categories
+                'category-default': 'Nama Folder Baru',
+                'add-message': 'Tambah Pesan',
+                'message-title': 'Judul Pesan',
+                'message-content': 'Tulis balasan di sini... (Mendukung SEMUA bahasa!)',
+                'tap-hint': 'Tap teks di atas untuk menyalin',
+                
+                // Buttons
+                'delete-item': 'Hapus',
+                'edit-btn': 'Edit',
+                'cancel-btn': 'Batal',
+                'save-btn': 'Simpan',
+                
+                // Confirmation Messages
+                'confirm-reset': '⚠️ PERINGATAN: Semua data script Anda akan dihapus dan dikembalikan ke pengaturan awal (pabrik).\n\nApakah Anda yakin?',
+                'confirm-delete-all': '⚠️ PERINGATAN KERAS: Menu dan semua script akan dihapus TOTAL!\n\nAnda harus membuatnya lagi dari nol.\nApakah Anda yakin?',
+                'confirm-delete-category': 'Hapus kategori folder ini?',
+                'confirm-delete-message': 'Hapus pesan ini?',
+                'confirm-banned-words': '⚠️ Ada kata terlarang (${violations}). Yakin simpan?',
+                
+                // Success Messages
+                'success-reset': 'Data berhasil dikembalikan ke default.',
+                
+                // Empty State
+                'empty-state': 'Belum ada menu tersimpan.<br>Klik tombol (+) di bawah untuk membuat baru.',
+                
+                // Warning
+                'warning-title': 'PERINGATAN',
+                'warning-banned': 'Kata "${words}" dilarang.',
+                
+                // Language
+                'current-lang': 'ID',
+                
+                // Storage Info
+                'storage-title': 'PENYIMPANAN LOKAL:',
+                'storage-text': 'Semua data disimpan otomatis di cache browser (LocalStorage) - TANPA KADALUARSA! Data tetap tersedia meski browser ditutup. Mendukung input SEMUA bahasa!',
+                'check-storage-btn': 'Cek Storage',
+                'clear-storage-btn': 'Bersihkan Semua',
+                'confirm-clear-storage': '⚠️ PERINGATAN: Semua data termasuk tema dan bahasa akan dihapus dari cache browser.\n\nAplikasi akan kembali ke pengaturan pabrik.\nApakah Anda yakin?',
+                'storage-cleared': '✅ Semua data cache telah dibersihkan.',
+                'storage-info': 'Data tersimpan: ${size} KB (Mendukung bahasa tak terbatas!)',
+                'storage-empty': 'Tidak ada data tersimpan',
+                
+                // Modal
+                'modal-title': 'Buat Folder Baru',
+                'folder-name-label': 'Nama Folder:',
+                'folder-name-hint': 'Masukkan nama deskriptif untuk folder baru Anda (contoh: "Pesan Selamat Datang", "Info Pengiriman", dll.)',
+                'example-title': '📁 Contoh Folder yang Dibuat:',
+                'example-text': 'Setelah dibuat, folder ini akan berisi:<br>1. Contoh pesan yang menunjukkan cara penggunaan<br>2. Anda bisa tambah pesan dengan klik "Tambah Pesan"<br>3. Tap teks pesan apa saja untuk menyalin ke clipboard<br>4. Edit atau hapus pesan menggunakan tombol',
+                'cancel-btn-modal': 'Batal',
+                'create-btn': 'Buat Folder'
             }
         };
 
-        let currentLanguage = 'id';
-        const LANGUAGE_KEY = 'SellerProV15_Language';
+        let currentLanguage = 'en';
+        const LANGUAGE_KEY = 'SellerTiktokChatPro_Language';
 
         // Fungsi untuk mengubah bahasa
         function changeLanguage(lang) {
@@ -871,6 +1270,15 @@
             
             // Close dropdown
             document.getElementById('lang-dropdown').classList.remove('show');
+            
+            // Update modal text if it's open
+            updateModalText();
+            
+            // Show language change notification
+            const message = lang === 'en' 
+                ? '🌐 Language changed to English' 
+                : '🌐 Bahasa diubah ke Indonesia';
+            showToast(message, 2000);
         }
 
         // Fungsi untuk menerapkan terjemahan
@@ -894,6 +1302,13 @@
             document.getElementById('info-text').textContent = t['info-text'];
             document.getElementById('toast-text').textContent = t['toast-text'];
             document.getElementById('current-lang').textContent = t['current-lang'];
+            document.getElementById('storage-title').textContent = t['storage-title'];
+            document.getElementById('storage-text').textContent = t['storage-text'];
+            document.getElementById('check-storage-btn').textContent = t['check-storage-btn'];
+            document.getElementById('clear-storage-btn').textContent = t['clear-storage-btn'];
+            
+            // Update document title
+            document.title = t['app-title'];
             
             // Render ulang untuk update teks dinamis
             if (document.getElementById('app-container').innerHTML !== '') {
@@ -901,9 +1316,32 @@
             }
         }
 
+        // Update modal text
+        function updateModalText() {
+            const t = translations[currentLanguage];
+            const modal = document.getElementById('createFolderModal');
+            
+            if (modal && modal.classList.contains('active')) {
+                document.getElementById('modal-title').textContent = t['modal-title'];
+                document.getElementById('folder-name-label').textContent = t['folder-name-label'];
+                document.getElementById('folder-name-hint').innerHTML = t['folder-name-hint'];
+                document.getElementById('example-title').textContent = t['example-title'];
+                document.getElementById('example-text').innerHTML = t['example-text'];
+                document.getElementById('cancel-btn-modal').textContent = t['cancel-btn-modal'];
+                document.getElementById('create-btn').textContent = t['create-btn'];
+                
+                // Update placeholder
+                const input = document.getElementById('newFolderName');
+                input.placeholder = t['category-default'];
+                if (input.value === 'New Folder Name' || input.value === 'Nama Folder Baru') {
+                    input.value = t['category-default'];
+                }
+            }
+        }
+
         // Fungsi untuk mendapatkan terjemahan
         function t(key, variables = {}) {
-            let text = translations[currentLanguage][key] || translations['id'][key] || key;
+            let text = translations[currentLanguage][key] || translations['en'][key] || key;
             
             // Replace variables
             Object.keys(variables).forEach(variable => {
@@ -942,13 +1380,13 @@
                 if(savedTheme === 'dark') document.getElementById('checkbox').checked = true;
             }
 
-            // Load Language
+            // Load Language - Default to English
             const savedLanguage = localStorage.getItem(LANGUAGE_KEY);
             if (savedLanguage) {
                 currentLanguage = savedLanguage;
             } else {
-                currentLanguage = 'id';
-                localStorage.setItem(LANGUAGE_KEY, 'id');
+                currentLanguage = 'en';
+                localStorage.setItem(LANGUAGE_KEY, 'en');
             }
 
             // Load Data
@@ -962,9 +1400,17 @@
             // Apply language
             applyLanguage();
             render();
+            
+            // Tampilkan notifikasi penyimpanan lokal saat pertama kali
+            setTimeout(() => {
+                showStorageNotification();
+            }, 1000);
         }
 
-        function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(appData)); }
+        function saveData() { 
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+            showSaveNotification();
+        }
 
         function resetToDefault() {
             const confirmReset = confirm(t('confirm-reset'));
@@ -972,7 +1418,7 @@
                 appData = JSON.parse(JSON.stringify(defaultData));
                 saveData();
                 render();
-                alert(t('success-reset'));
+                showToast('🔄 ' + t('success-reset'), 3000);
             }
         }
 
@@ -982,7 +1428,79 @@
                 appData = [];
                 saveData();
                 render();
+                showToast('🗑️ ' + (currentLanguage === 'en' ? 'All data has been deleted!' : 'Semua data telah dihapus!'), 3000);
             }
+        }
+
+        // --- FUNGSI PENYIMPANAN LOKAL BARU ---
+        function checkStorageUsage() {
+            let totalSize = 0;
+            
+            // Hitung ukuran semua data di localStorage
+            for(let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                const value = localStorage.getItem(key);
+                const size = (value.length * 2) / 1024; // Ukuran dalam KB
+                totalSize += size;
+            }
+            
+            if (totalSize > 0) {
+                showToast('💾 ' + t('storage-info', {size: totalSize.toFixed(2)}), 3000);
+            } else {
+                showToast('💾 ' + t('storage-empty'), 2000);
+            }
+        }
+
+        function clearAllStorage() {
+            const confirmClear = confirm(t('confirm-clear-storage'));
+            if (confirmClear) {
+                // Hapus semua data localStorage untuk aplikasi ini
+                localStorage.removeItem(STORAGE_KEY);
+                localStorage.removeItem(LANGUAGE_KEY);
+                localStorage.removeItem('theme');
+                
+                // Reset aplikasi
+                appData = JSON.parse(JSON.stringify(defaultData));
+                currentLanguage = 'en';
+                
+                // Terapkan ulang
+                applyLanguage();
+                render();
+                
+                // Tampilkan notifikasi
+                showToast('🧹 ' + t('storage-cleared'), 3000);
+                showToast('🔄 ' + (currentLanguage === 'en' ? 'App has been reset to factory settings!' : 'Aplikasi telah direset ke pengaturan pabrik!'), 3000);
+            }
+        }
+
+        function showStorageNotification() {
+            const savedData = localStorage.getItem(STORAGE_KEY);
+            if (savedData) {
+                const dataSize = (savedData.length * 2) / 1024; // Ukuran dalam KB
+                showToast('💾 ' + t('storage-info', {size: dataSize.toFixed(2)}), 4000);
+            }
+        }
+
+        function showSaveNotification() {
+            const message = currentLanguage === 'en' 
+                ? '💾 Data saved to browser cache (NO EXPIRATION!)' 
+                : '💾 Data tersimpan di cache browser (TANPA KADALUARSA!)';
+            showToast(message, 2000);
+        }
+
+        // Fungsi toast yang dapat dikustomisasi dengan animasi
+        function showToast(message, duration = 2000) {
+            const toast = document.getElementById('toast');
+            const toastText = document.getElementById('toast-text');
+            
+            toastText.textContent = message;
+            toast.classList.add('copy-success');
+            toast.className = "show";
+            
+            setTimeout(() => {
+                toast.className = toast.className.replace("show", "");
+                toast.classList.remove('copy-success');
+            }, duration);
         }
 
         // --- 5. RENDER SYSTEM ---
@@ -1076,7 +1594,7 @@
                     </div>
 
                     <div id="view-${item.id}">
-                        <div class="card-body" onclick="copyText('${item.text.replace(/'/g, "\\'")}')">${item.text}</div>
+                        <div class="card-body" onclick="copyText('${item.text.replace(/'/g, "\\'")}', '${item.title.replace(/'/g, "\\'")}')">${item.text}</div>
                         <div class="tap-hint">${t('tap-hint')}</div>
                         
                         <div class="btn-group" id="act-${item.id}" style="margin-top:8px;">
@@ -1088,7 +1606,7 @@
                     <div id="edit-${item.id}" class="edit-area hidden">
                         <div id="alert-${item.id}" class="risk-alert hidden"></div>
                         <input type="text" id="inp-title-${item.id}" class="form-input" value="${item.title}" placeholder="${t('message-title')}">
-                        <textarea id="inp-text-${item.id}" class="form-input" onkeyup="handleInputCheck('${item.id}')">${item.text}</textarea>
+                        <textarea id="inp-text-${item.id}" class="form-input" onkeyup="handleInputCheck('${item.id}')" placeholder="${t('message-content')}">${item.text}</textarea>
                         <div class="btn-group">
                             <button class="btn btn-danger" onclick="deleteItem(${catIndex}, ${itemIndex})"><i class="fas fa-trash-alt"></i> ${t('delete-item')}</button>
                             <button class="btn" onclick="toggleEditItem('${item.id}')">${t('cancel-btn')}</button>
@@ -1200,9 +1718,15 @@
             const theme = e.checked ? 'dark' : 'light';
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
+            
+            const message = theme === 'dark' 
+                ? '🌙 Dark mode activated' 
+                : '☀️ Light mode activated';
+            showToast(message, 2000);
         }
 
-        // Variabel untuk melacak panel yang sedang terbuka PER KOLOM
+        // PERBAIKAN: Variabel untuk melacak panel yang sedang terbuka PER KOLOM
+        // Untuk mobile (satu kolom) dan desktop (dua kolom)
         let currentlyOpenPanels = { left: null, right: null };
 
         function togglePanel(panelId, parentId, e) {
@@ -1215,7 +1739,7 @@
             // Tentukan kolom mana (kiri atau kanan)
             let column = 'left';
             if (window.innerWidth >= 768) {
-                // Cari apakah parentDiv berada di kolom kiri atau kanan
+                // Untuk desktop dengan dua kolom
                 const leftColumn = document.querySelector('.left-column');
                 const rightColumn = document.querySelector('.right-column');
                 
@@ -1225,7 +1749,7 @@
                     column = 'right';
                 }
             } else {
-                // Untuk mobile, hanya ada satu kolom
+                // Untuk mobile (hanya satu kolom), semua panel dianggap di kolom 'left'
                 column = 'left';
             }
             
@@ -1237,7 +1761,7 @@
                 return;
             }
             
-            // Tutup panel yang sedang terbuka di kolom yang sama (jika ada)
+            // PERBAIKAN: Hanya tutup panel di kolom yang sama (kiri hanya tutup kiri, kanan hanya tutup kanan)
             if (currentlyOpenPanels[column] && currentlyOpenPanels[column] !== panel) {
                 currentlyOpenPanels[column].classList.remove('open');
                 const previousParent = currentlyOpenPanels[column].parentElement;
@@ -1267,6 +1791,116 @@
                 alertBox.classList.add('hidden');
             }
         }
+
+        // --- MODAL FUNCTIONS ---
+        function showCreateFolderModal() {
+            const modal = document.getElementById('createFolderModal');
+            const input = document.getElementById('newFolderName');
+            
+            // Update modal text
+            updateModalText();
+            
+            // Show modal
+            modal.classList.add('active');
+            
+            // Focus on input
+            setTimeout(() => {
+                input.focus();
+                input.select();
+            }, 100);
+        }
+
+        function hideCreateFolderModal() {
+            const modal = document.getElementById('createFolderModal');
+            modal.classList.remove('active');
+        }
+
+        function createNewFolderFromModal() {
+            const input = document.getElementById('newFolderName');
+            const folderName = input.value.trim();
+            
+            if (!folderName) {
+                showToast('❌ ' + (currentLanguage === 'en' ? 'Please enter a folder name!' : 'Harap masukkan nama folder!'), 2000);
+                return;
+            }
+            
+            const newId = Date.now();
+            const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+            
+            // Example item based on current language
+            const exampleItem = {
+                id: 'example_' + Date.now(),
+                title: currentLanguage === 'en' ? 'Example Message' : 'Contoh Pesan',
+                text: currentLanguage === 'en' 
+                    ? 'Hi! This is an example message. Click on this text to copy it to clipboard. You can edit this message or add new ones using the "Add Message" button below. 😊'
+                    : 'Hai! Ini adalah contoh pesan. Klik teks ini untuk menyalin ke clipboard. Anda bisa mengedit pesan ini atau menambah yang baru menggunakan tombol "Tambah Pesan" di bawah. 😊'
+            };
+            
+            const newCategory = {
+                id: newId,
+                title: folderName,
+                icon: 'fa-folder',
+                color: randomColor,
+                items: [exampleItem] // Add example item
+            };
+            
+            appData.push(newCategory);
+            saveData();
+            render();
+            
+            // Hide modal
+            hideCreateFolderModal();
+            
+            // Reset input
+            input.value = t('category-default');
+            
+            // Show success message
+            const message = currentLanguage === 'en'
+                ? `📁 Folder "${folderName}" created with example message!`
+                : `📁 Folder "${folderName}" dibuat dengan contoh pesan!`;
+            showToast(message, 3000);
+            
+            // Auto-open the new folder
+            setTimeout(() => {
+                const panel = document.getElementById(`panel-${newId}`);
+                const parentDiv = document.getElementById(`cat-item-${newId}`);
+                
+                if (panel && parentDiv) {
+                    panel.classList.add('open');
+                    parentDiv.classList.add('active-parent');
+                    
+                    // Determine column
+                    let column = 'left';
+                    if (window.innerWidth >= 768) {
+                        const leftColumn = document.querySelector('.left-column');
+                        const rightColumn = document.querySelector('.right-column');
+                        
+                        if (leftColumn && leftColumn.contains(parentDiv)) {
+                            column = 'left';
+                        } else if (rightColumn && rightColumn.contains(parentDiv)) {
+                            column = 'right';
+                        }
+                    }
+                    
+                    currentlyOpenPanels[column] = panel;
+                }
+                
+                // Scroll to new folder
+                window.scrollTo(0, document.body.scrollHeight);
+            }, 100);
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(event) {
+            const modal = document.getElementById('createFolderModal');
+            const modalContent = document.querySelector('.modal');
+            
+            if (modal.classList.contains('active') && !modalContent.contains(event.target) && 
+                !event.target.classList.contains('fab') && 
+                !event.target.closest('.fab')) {
+                hideCreateFolderModal();
+            }
+        });
 
         // --- CRUD ACTIONS ---
         
@@ -1445,20 +2079,6 @@
             }, 50);
         }
 
-        function addNewCategory() {
-            const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
-            appData.push({ 
-                id: Date.now(), 
-                title: t('category-default'), 
-                icon: 'fa-folder', 
-                color: randomColor, 
-                items: [] 
-            });
-            saveData(); 
-            render();
-            window.scrollTo(0, document.body.scrollHeight);
-        }
-
         function rebuildData() {
             const newAppData = [];
             document.querySelectorAll('.category-item').forEach(catEl => {
@@ -1479,20 +2099,20 @@
             saveData();
         }
 
-        function copyText(txt) {
+        function copyText(txt, title = '') {
             // Fallback untuk perangkat mobile
             if (navigator.clipboard && window.isSecureContext) {
                 navigator.clipboard.writeText(txt).then(() => {
-                    showToast();
+                    showCopySuccess(title);
                 }).catch(err => {
-                    fallbackCopyText(txt);
+                    fallbackCopyText(txt, title);
                 });
             } else {
-                fallbackCopyText(txt);
+                fallbackCopyText(txt, title);
             }
         }
 
-        function fallbackCopyText(txt) {
+        function fallbackCopyText(txt, title = '') {
             const textArea = document.createElement("textarea");
             textArea.value = txt;
             textArea.style.position = "fixed";
@@ -1503,17 +2123,21 @@
             textArea.select();
             try {
                 document.execCommand('copy');
-                showToast();
+                showCopySuccess(title);
             } catch (err) {
                 console.error('Fallback: Oops, unable to copy', err);
+                showToast('❌ Copy failed!', 2000);
             }
             document.body.removeChild(textArea);
         }
 
-        function showToast() {
-            const t = document.getElementById('toast');
-            t.className = "show";
-            setTimeout(()=> t.className = t.className.replace("show", ""), 2000);
+        function showCopySuccess(title = '') {
+            const toastText = document.getElementById('toast-text');
+            const successMessage = title 
+                ? `✅ Copied: "${title}"`
+                : t('toast-text');
+            
+            showToast(successMessage, 2000);
         }
 
         // Init App
