@@ -797,11 +797,11 @@
         }
 
 		function togglePanel(panelId, parentId, e) {
-			if (e && e.target.tagName === 'INPUT') return; 
+			if (e && e.target.tagName === 'INPUT') return;
 			const panel = document.getElementById(panelId);
 			const parentDiv = document.getElementById(parentId);
 		
-			// Tutup semua panel lain dulu
+			// Tutup semua panel kategori lain
 			document.querySelectorAll('.panel.open').forEach(function(openPanel) {
 				if (openPanel.id !== panelId) {
 					openPanel.classList.remove('open');
@@ -813,8 +813,7 @@
 			});
 		
 			// Toggle panel yang diklik
-			const isOpen = panel.classList.contains('open');
-			if (isOpen) {
+			if (panel.classList.contains('open')) {
 				panel.classList.remove('open');
 				parentDiv.classList.remove('active-parent');
 			} else {
