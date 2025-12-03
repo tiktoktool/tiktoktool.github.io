@@ -796,17 +796,32 @@
             localStorage.setItem('theme', theme);
         }
 
-        function togglePanel(panelId, parentId, e) {
-            // Cek apakah yang diklik adalah input field (saat mode edit)
-            if (e && e.target.tagName === 'INPUT') return; 
-
-            const panel = document.getElementById(panelId);
-            const parentDiv = document.getElementById(parentId);
-            
-            // Hanya toggle panel yang diklik, tanpa mempengaruhi panel lain
-            panel.classList.toggle('open');
-            parentDiv.classList.toggle('active-parent');
-        }
+		function togglePanel(panelId, parentId, e) {
+			if (e && e.target.tagName === 'INPUT') return; 
+			const panel = document.getElementById(panelId);
+			const parentDiv = document.getElementById(parentId);
+		
+			// Tutup semua panel lain dulu
+			document.querySelectorAll('.panel.open').forEach(function(openPanel) {
+				if (openPanel.id !== panelId) {
+					openPanel.classList.remove('open');
+					const openParent = openPanel.parentNode;
+					if (openParent.classList.contains('category-item')) {
+						openParent.classList.remove('active-parent');
+					}
+				}
+			});
+		
+			// Toggle panel yang diklik
+			const isOpen = panel.classList.contains('open');
+			if (isOpen) {
+				panel.classList.remove('open');
+				parentDiv.classList.remove('active-parent');
+			} else {
+				panel.classList.add('open');
+				parentDiv.classList.add('active-parent');
+			}
+		}
 
         function checkContent(text) {
             return BANNED_KEYWORDS.filter(word => text.toLowerCase().includes(word));
