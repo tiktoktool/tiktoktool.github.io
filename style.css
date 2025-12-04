@@ -1,0 +1,81 @@
+/* ===================== FLAG COUNTER SECTION ===================== */
+.flag-counter-container {
+    max-width: 600px;
+    margin: 25px auto 15px;
+    padding: 20px;
+    border-radius: var(--radius);
+    background: var(--bg-card);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    text-align: center;
+}
+
+.flag-counter-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.flag-counter-inner i.fa-flag {
+    font-size: 48px;
+    color: var(--primary);
+    background: linear-gradient(45deg, var(--primary), #ff6b9c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.counter-info h3 {
+    color: var(--text-main);
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.counter-info p {
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.counter-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    width: 100%;
+}
+
+.counter-stats .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 15px;
+    background: var(--bg-panel);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+.counter-stats .stat i {
+    font-size: 24px;
+    color: var(--primary);
+}
+
+.counter-stats .stat span {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.counter-stats .stat strong {
+    color: var(--text-main);
+    font-size: 18px;
+    display: block;
+    margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+    .counter-stats {
+        grid-template-columns: 1fr;
+    }
+}
