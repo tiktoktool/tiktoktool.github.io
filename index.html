@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Seller Chat Assistant Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+    <style>
+        /* CSS akan ditempatkan di bagian 2 */
+    </style>
+</head>
+<body>
+    <div class="sticky-header">
+        <div class="header-left">
+            <h2 id="app-title">Seller Chat Assistant Pro</h2>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" onchange="toggleTheme(this)">
+                    <div class="slider round"></div>
+                </label>
+            </div>
+        </div>
+
+        <div class="header-actions">
+            <!-- Tombol Ekspor/Impor -->
+            <button class="btn-top btn-export" onclick="exportData()">
+                <i class="fas fa-download"></i> <span id="export-btn">Export</span>
+            </button>
+            
+            <button class="btn-top btn-import" onclick="document.getElementById('importFile').click()">
+                <i class="fas fa-upload"></i> <span id="import-btn">Import</span>
+            </button>
+            <input type="file" id="importFile" accept=".txt" style="display: none;" onchange="importData(event)">
+            
+            <div class="language-selector">
+                <button class="lang-btn" onclick="toggleLanguageDropdown()">
+                    <i class="fas fa-globe"></i>
+                    <span id="current-lang">ID</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="lang-dropdown" id="lang-dropdown">
+                    <div class="lang-option active" data-lang="id" onclick="changeLanguage('id')">
+                        <span>🇮🇩 Indonesia</span>
+                    </div>
+                    <div class="lang-option" data-lang="en" onclick="changeLanguage('en')">
+                        <span>🇺🇸 English</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn-top btn-reset" onclick="resetToDefault()">
+                <i class="fas fa-rotate-left"></i> <span id="reset-btn">Reset</span>
+            </button>
+            <button class="btn-top btn-clear" onclick="deleteAll()">
+                <i class="fas fa-trash-alt"></i> <span id="delete-btn">Hapus Semua</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="lang-badge">
+        <i class="fas fa-language"></i> Multi-language
+    </div>
+
+    <div class="info-bar">
+        <i class="fas fa-shield-alt"></i> <b id="info-title">INFO PENTING:</b> <span id="info-text">Hindari kata sensitif di balasan chat. Mendukung input semua bahasa!</span>
+    </div>
+
+    <div id="app-container"></div>
+
+    <!-- Storage Info Panel -->
+    <div class="storage-info-panel">
+        <div class="storage-info-content">
+            <i class="fas fa-database" style="color: var(--primary);"></i>
+            <div class="storage-info-text">
+                <strong id="storage-title">PENYIMPANAN LOKAL:</strong> 
+                <span id="storage-text">Semua data disimpan otomatis di cache browser (LocalStorage) - TANPA KADALUARSA! Data tetap tersedia meski browser ditutup. Mendukung input SEMUA bahasa!</span>
+            </div>
+        </div>
+        <div class="storage-actions">
+            <button class="btn-check-storage" onclick="checkStorageUsage()">
+                <i class="fas fa-chart-pie"></i> <span id="check-storage-btn">Cek Storage</span>
+            </button>
+            <button class="btn-clear-storage" onclick="clearAllStorage()">
+                <i class="fas fa-broom"></i> <span id="clear-storage-btn">Bersihkan Semua</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Flag Counter Section -->
+    <div class="flag-counter-container">
+        <a href="https://info.flagcounter.com/LmOi" target="_blank">
+            <img src="https://s01.flagcounter.com/count/LmOi/bg_050B42/txt_FFFFFF/border_CCCCCC/columns_2/maxflags_10/viewers_Total+Visit/labels_1/pageviews_1/flags_0/percent_1/" 
+                 alt="Flag Counter" 
+                 border="0"
+                 class="flag-counter-img">
+        </a>
+    </div>
+
+    <div class="fab" onclick="showCreateFolderModal()">
+        <i class="fas fa-plus"></i>
+    </div>
+
+    <!-- Modal Create New Folder -->
+    <div class="modal-overlay" id="createFolderModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title" id="modal-title">Buat Folder Baru</div>
+                <button class="modal-close" onclick="hideCreateFolderModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label" id="folder-name-label">Nama Folder:</label>
+                    <input type="text" class="form-input" id="newFolderName" placeholder="Nama Folder Baru" value="Nama Folder Baru">
+                    <div class="form-hint" id="folder-name-hint">Masukkan nama deskriptif untuk folder baru Anda (contoh: "Pesan Selamat Datang", "Info Pengiriman", dll.)</div>
+                </div>
+                
+                <div class="example-item">
+                    <div class="example-title" id="example-title">📁 Contoh Folder yang Dibuat:</div>
+                    <div class="example-text" id="example-text">
+                        Setelah dibuat, folder ini akan berisi:<br>
+                        1. Contoh pesan yang menunjukkan cara penggunaan<br>
+                        2. Anda bisa tambah pesan dengan klik "Tambah Pesan"<br>
+                        3. Tap teks pesan apa saja untuk menyalin ke clipboard<br>
+                        4. Edit atau hapus pesan menggunakan tombol
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="hideCreateFolderModal()">
+                    <i class="fas fa-times"></i> <span id="cancel-btn-modal">Batal</span>
+                </button>
+                <button class="btn btn-primary" onclick="createNewFolderFromModal()">
+                    <i class="fas fa-check"></i> <span id="create-btn">Buat Folder</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast"><i class="fas fa-check-circle"></i> <span id="toast-text">✅ Teks berhasil disalin!</span></div>
+
+    <script>
+        // JavaScript akan ditempatkan di bagian 3
+    </script>
+</body>
+</html>
