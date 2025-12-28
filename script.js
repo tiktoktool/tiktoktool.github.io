@@ -408,24 +408,36 @@ function applyLanguage() {
     }
 }
 
-// Update modal text
+// --- PERBAIKAN: Update modal text function ---
 function updateModalText() {
     const t = translations[currentLanguage];
-    const modal = document.getElementById('createFolderModal');
     
-    if (modal && modal.classList.contains('active')) {
-        document.getElementById('modal-title').textContent = t['modal-title'];
-        document.getElementById('folder-name-label').textContent = t['folder-name-label'];
-        document.getElementById('folder-name-hint').innerHTML = t['folder-name-hint'];
-        document.getElementById('example-title').textContent = t['example-title'];
-        document.getElementById('example-text').innerHTML = t['example-text'];
-        document.getElementById('cancel-btn-modal').textContent = t['cancel-btn-modal'];
-        document.getElementById('create-btn').textContent = t['create-btn'];
-        
-        // Update placeholder
-        const input = document.getElementById('newFolderName');
+    // Selalu update elemen modal meskipun tidak aktif
+    const modalTitle = document.getElementById('modal-title');
+    const folderNameLabel = document.getElementById('folder-name-label');
+    const folderNameHint = document.getElementById('folder-name-hint');
+    const exampleTitle = document.getElementById('example-title');
+    const exampleText = document.getElementById('example-text');
+    const cancelBtnModal = document.getElementById('cancel-btn-modal');
+    const createBtn = document.getElementById('create-btn');
+    const input = document.getElementById('newFolderName');
+    
+    if (modalTitle) modalTitle.textContent = t['modal-title'];
+    if (folderNameLabel) folderNameLabel.textContent = t['folder-name-label'];
+    if (folderNameHint) folderNameHint.innerHTML = t['folder-name-hint'];
+    if (exampleTitle) exampleTitle.textContent = t['example-title'];
+    if (exampleText) exampleText.innerHTML = t['example-text'];
+    if (cancelBtnModal) cancelBtnModal.textContent = t['cancel-btn-modal'];
+    if (createBtn) createBtn.textContent = t['create-btn'];
+    
+    if (input) {
         input.placeholder = t['category-default'];
-        if (input.value === 'Nama Folder Baru' || input.value === 'New Folder Name') {
+        // Jika nilai input adalah terjemahan sebelumnya, ganti dengan terjemahan baru
+        const oldValue = input.value;
+        const oldTranslationId = translations['id']['category-default'];
+        const oldTranslationEn = translations['en']['category-default'];
+        
+        if (oldValue === oldTranslationId || oldValue === oldTranslationEn) {
             input.value = t['category-default'];
         }
     }
